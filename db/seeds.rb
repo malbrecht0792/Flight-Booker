@@ -12,7 +12,7 @@ end
 	start_datetime = Faker::Time.between((DateTime.now + 1.day), (DateTime.now + 7.days))
 	duration = rand(3..5).hours
 	if origin != destination
-		Flight.create!(origin:  origin, destination: destination,
+		Flight.create!(origin_id:  origin, destination_id: destination,
 					   start_datetime: start_datetime, duration: duration)
 	end
 end
