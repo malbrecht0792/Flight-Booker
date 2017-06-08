@@ -16,12 +16,15 @@
 <% end %>
 
 <%if !@flights.nil? %>
-	<% @flights.each do |flight| %>
-		<p>
-			From: <%= flight.origin.code %> <br>
-			<%= radio_button_tag(:flight, flight.id) %>
-			<%= label_tag(:flight, "To: #{flight.destination.code}") %> <br>
-			Date/Time: <%= flight.start_datetime %> <br>
-		</p>
+	<%= form_tag bookings_new_path, :method => 'get' do |f| %>
+		<% @flights.each do |flight| %>
+			<p>
+				From: <%= flight.origin.code %> <br>
+				<%= radio_button_tag(:flight_id, flight.id) %>
+				<%= label_tag(:flight, "To: #{flight.destination.code}") %> <br>
+				Date/Time: <%= flight.start_datetime %> <br>
+			</p>
+		<% end %>
+		<%= submit_tag ("Next") %>
 	<% end %>
 <% end %>
