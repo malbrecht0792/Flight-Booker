@@ -1,0 +1,31 @@
+<h1>Flights</h1>
+
+<%= form_tag flights_path, :method => 'get' do %>
+
+	<%= label_tag(:origin, "Origin:") %>
+	<%= select_tag(:origin_search, options_for_select(@origin_options)) %><br>
+
+	<%= label_tag(:destination, "Destination:") %>
+	<%= select_tag(:destination_search, options_for_select(@destination_options)) %><br>
+	
+	<%= label_tag(:passengers, "Passengers:") %>
+	<%= text_field_tag(:passengers_search, params[:passengers_search]) %><br>
+	<%= label_tag(:datetime, "Flight Date/Time:") %>
+	<%= datetime_select(:datetime, params[:start_datetime_search], :ampm =>true, :minute_step => 15) %><br>
+	<%= submit_tag ("Search") %>
+<% end %>
+
+<%if !@flights.nil? %>
+	<% @flights.each do |flight| %>
+		<p> 
+			From:
+			<%= flight.origin.code %> <br>
+			To:
+			<%= flight.destination.code %> <br>
+			Date/Time:
+			<%= flight.start_datetime %> <br>
+		</p>
+	<% end %>
+<% end %>
+
+
