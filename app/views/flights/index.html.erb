@@ -17,15 +17,11 @@
 
 <%if !@flights.nil? %>
 	<% @flights.each do |flight| %>
-		<p> 
-			From:
-			<%= flight.origin.code %> <br>
-			To:
-			<%= flight.destination.code %> <br>
-			Date/Time:
-			<%= flight.start_datetime %> <br>
+		<p>
+			From: <%= flight.origin.code %> <br>
+			<%= radio_button_tag(:flight, flight.id) %>
+			<%= label_tag(:flight, "To: #{flight.destination.code}") %> <br>
+			Date/Time: <%= flight.start_datetime %> <br>
 		</p>
 	<% end %>
 <% end %>
-
-
