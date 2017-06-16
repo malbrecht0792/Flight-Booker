@@ -1,0 +1,8 @@
+<h1>Your Booking</h1>
+
+Origin: <%= @flight.origin.code %> <br>
+Destination <%= @flight.destination.code %> <br>
+
+<% @booking.passengers.each_with_index do |passenger, index| %>
+	Passenger <%= index + 1 %>: <%= passenger.name %> <br>
+<% end %>

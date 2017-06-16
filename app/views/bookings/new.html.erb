@@ -1,2 +1,21 @@
-<h1>Bookings#new</h1>
-<p>Find me in app/views/bookings/new.html.erb</p>
+<h1>Create Your Booking</h1>
+
+Origin: <%= @flight.origin.code %> <br>
+Destination <%= @flight.destination.code %> <br>
+Number of Passengers: <%= params[:num_of_passengers] %> <br>
+
+<%= form_for @booking, url: {action: "create"} do |f| %>
+	<%= f.label(:email, "Email:") %>
+	<%= f.text_field(:email) %> <br>
+	<% @passengers.each do |passenger| %>
+		<%= f.fields_for(:passengers, passenger) do |pass_form| %>
+			<%= pass_form.label(:name, "Name:") %>
+			<%= pass_form.text_field(:name) %><br>
+		<% end %>
+	<% end %> <br>
+	<input type="hidden" name="num_of_passengers" value=<%= params[:num_of_passengers] %>>
+	<input type="hidden" name="flight_id" value=<%= @flight.id %>>
+	<input type="hidden" name="booking_object" value=<%= @booking %>>
+	<%= f.submit("Submit") %>
+<% end %>
+
