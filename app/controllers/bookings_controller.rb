@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
 
   def create
   	flight = Flight.find(params[:flight_id])
-  	booking = flight.bookings.build(flight_id: flight.id, email: booking_params)
+  	booking = flight.bookings.build(flight_id: flight.id, email: booking_params[:email])
   	
   	if booking.save
 	  	booking_params[:passengers_attributes].values.each do |passenger|
@@ -18,9 +18,11 @@ class BookingsController < ApplicationController
 	  		BookingsPassenger.create(booking_id: booking.id, 
 	  							      passenger_id: new_passenger.id)
 	  	end
+      puts "EMAIL ADDRESS: #{booking.email}"
+      PassengerMailer.thank_you_email(booking.passengers.first, booking.email).deliver_now
 	  	redirect_to booking_path(booking.id)
-	else
-		render new
+	  else
+		  render new
 	end
   end
 
